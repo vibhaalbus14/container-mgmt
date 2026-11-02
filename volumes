@@ -1,0 +1,45 @@
+docker volume is a folder on host machine thats connected to a path/folder in a container
+=> container can read or write to this volume
+Thus, volumes are used to persist storage or data written / created in containers
+
+Data storage is of 2 types:
+1.volumes
+2.bind mounts
+
+1.volumes:
+We specify the path in container and at max can give the volume name however , wheere this folder is careted
+on host machine is managed by docker
+
+is of 2 types => a) anonymous volumes b) named volumes
+
+a) 
+1. anonymous volumes are attached to a container. when a container is started or run , 
+an anonymous volume is attached, and conatiner writes or reads from this 
+2. on removing a conatiner (--rm) , anonymous containers are removed, on starting again, data is lost
+3. if we do not start conatiner or un conatiner with --rm flag, on removing a conatiner, anonymous 
+volumes are not removed, and thus piling up of volumes start
+4. can be removed via:
+        docker volume rm vol_name
+        docker volume prune
+5. for anonymous volumes, another line in dockerfile needs to be written specifying the path inside conatiner
+        VOLUME ["/app/feedback"]
+        -v /app/feedback
+6.Anonymous volumes are used when we need to over write files in container during bind mounts
+
+
+b)
+1. named volumes => continue to stay even if the conatiner is removed=> persistent storage
+2. on restarting a conatiner , same volume needs to be specified
+3. here, no additional commands are added in docker file rather during run command
+        docker run --name ... -v volname:/app/feedback [vol_name:/container path]
+
+2) Bind mounts:
+1. it is used to actively update the container code with that of original source code,thus no need to build image everytime code is updated
+2. here we manually map the host machine folder to conatiner machine folder
+3. initial image is built on snapshot of original code, later on changes made are overwritten
+4. this can lead to loss app specific installations being erased=> wtever is there in source is copied, since source say wont have node_modules , those arent present in later updates in container code
+5. thats why anonymous volumes are used to copy these installations and later on write from volume into the container
+6. syntax:
+        -v "abs source path:\container path: ro" [all anonymous volumes overwrite]
+        -v "abs soucrce path":\container path [anonymous volume]
+        -v "C:\Users\Vishruta\vibha\learn_docker\node-feedback-app":\app\feedback  -v \app\feedback
