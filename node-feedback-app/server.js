@@ -1,9 +1,8 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-
+const port =process.env.PORT
 const app = express();
-const PORT = 3000;
 const feedbackDir = path.join(__dirname, "feedback");
 
 app.use(express.urlencoded({ extended: false }));
@@ -71,6 +70,6 @@ app.get("/feedback/:filename", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });

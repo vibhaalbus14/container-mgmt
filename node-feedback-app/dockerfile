@@ -2,6 +2,10 @@ FROM node:16
 WORKDIR /app
 COPY package.json .
 RUN npm install
+ARG DEF_PORT=80
+#port value is chosen as def env variable
+# '#'' is used to identify a variable
+ENV PORT=$DEF_PORT
 COPY . .
 EXPOSE 3000
 VOLUME ["/app/feedback"]
