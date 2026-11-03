@@ -1,0 +1,3 @@
+node_modules
+#files or folder included in dockerignored are not copied into image during image creation
+.env

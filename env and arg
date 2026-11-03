@@ -1,0 +1,20 @@
+env: env variables are given to conatiners during image run
+
+1. this can be included as part of docker file as 
+    ENV PORT =8000 #default
+    --env PORT =3000 #during conatiner run time
+    process.env.PORT #while reading in server.js files
+
+2. for security reasons env variables are not baked into image as anyone can view image history
+3. all the env variables are stored in .env file and are supplied during container creation
+    --env-file ./.env
+
+
+arg : argument variables are provided during image creation, values can be different for differnet images
+
+1.declaration in dockerfile
+    ARG DEF_PORT=80
+    
+2.usage during image build up
+    docker build --arg-build DEF_PORT=3000 . #this overwrites def port 80 value
+
