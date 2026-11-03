@@ -43,3 +43,9 @@ b)
         -v "abs source path:\container path: ro" [all anonymous volumes overwrite]
         -v "abs soucrce path":\container path [anonymous volume]
         -v "C:\Users\Vishruta\vibha\learn_docker\node-feedback-app":\app\feedback  -v \app\feedback
+
+
+NOTE: The container path uses forward slashes / because your Docker container is running Linux. Your host path uses Windows-style backslashes \.
+
+Eg: 
+docker run --rm -v feedback-vol:/app/feedback -v "C:\Users\Vishruta\vibha\learn_docker\node-feedback-app:/app" -v /app/node_modules --name feedback-cont -p 3000:3000 feedback-image:1
